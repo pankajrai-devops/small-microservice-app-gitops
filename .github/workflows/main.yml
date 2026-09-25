@@ -15,3 +15,11 @@ jobs:
           java-version: '25'
           cache: maven
       - run: java --version
+      - name: Build package
+        working-directory: ./webapp
+        run: mvn clean package
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: pankaj-war
+          path: "/pankaj.war"
