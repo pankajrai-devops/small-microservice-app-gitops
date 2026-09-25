@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Native Entrypoint Seeding App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f7fafc; color: #2d3748; }
+        .form-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 400px; margin: auto; }
+        h2 { color: #2b6cb0; margin-top: 0; text-align: center; font-size: 20px; padding-bottom: 12px; border-bottom: 2px solid #e2e8f0; }
+        label { font-weight: bold; font-size: 14px; }
+        input[type="text"], input[type="number"], textarea { width: 100%; padding: 10px; margin: 6px 0 16px 0; box-sizing: border-box; border: 1px solid #cbd5e0; border-radius: 4px; }
+        button { background-color: #3182ce; color: white; padding: 12px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
+        button:hover { background-color: #2b6cb0; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Native Entrypoint Intake</h2>
+        <form action="register" method="POST">
+            <label>Full Name:</label>
+            <input type="text" name="name" required>
+
+            <label>Age:</label>
+            <input type="number" name="age" min="1" max="120" required>
+
+            <label>Sex:</label><br>
+            <input type="radio" name="sex" value="Male" required> Male &nbsp;
+            <input type="radio" name="sex" value="Female"> Female &nbsp;
+            <input type="radio" name="sex" value="Other"> Other
+            <br><br>
+
+            <label>Physical Address:</label>
+            <textarea name="address" rows="3" required></textarea>
+
+            <button type="submit">Write to Primary Service Router</button>
+        </form>
+    </div>
+</body>
+</html>
