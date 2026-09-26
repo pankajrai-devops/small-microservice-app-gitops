@@ -23,8 +23,9 @@ jobs:
       - run: |
           java --version
           mvn clean package
+          ls -lart
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: pankaj-war
-          path: "/pankaj.war"
+          path: "/registration-app.war"
