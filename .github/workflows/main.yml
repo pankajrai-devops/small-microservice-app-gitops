@@ -4,9 +4,15 @@ on:
     branches: [ main, pankajrai-devops-patch-1 ]
   pull_request: 
     branches: [ main ]
+env:
+  app_dir: "./webapp"
+  db_dir: "./db"
 jobs:
   tar_build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: $app_dir
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-java@v6
@@ -14,10 +20,9 @@ jobs:
           distribution: temurin
           java-version: '25'
           cache: maven
-      - run: java --version
-      - name: Build package
-        working-directory: ./webapp
-        run: mvn clean package
+      - run: |
+          java --version
+          mvn clean package
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
