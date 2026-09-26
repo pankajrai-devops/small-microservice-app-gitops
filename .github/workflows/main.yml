@@ -48,9 +48,31 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
+          name: build-${{ github.ref_name }}-run${{ github.run_number }}
           path: ${{ github.workspace }}/webapp/target/registration-app.war
           archive: false
   webapp_image_build:
     runs-on: ubuntu-latest
     needs: [change_detections , tar_build]
     if: ${{ needs.change_detections.outputs.webapp_changed == 'true' }}
+    defaults:
+      run:
+        working-directory: ${{ env.app_dir }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: build-${{ github.ref_name }}-run${{ github.run_number }}
+          path: ${{ github.workspace }}/webapp/
+
+  db_image_build:
+    runs-on: ubuntu-latest
+    needs: change_detections
+    if: ${{ needs.change_detections.outputs.db_changed == 'true' }}
+    defaults:
+      run:
+        working-directory: ${{ env.db_dir }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: building image
+        run: echo "more to come"
