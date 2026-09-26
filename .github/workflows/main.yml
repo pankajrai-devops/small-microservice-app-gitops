@@ -28,5 +28,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          path: /home/runner/work/small-microservice-app-gitops/small-microservice-app-gitops/webapp/target/registration-app.war
+          path: ${{ github.workspace }}/webapp/target/registration-app.war
           archive: false
