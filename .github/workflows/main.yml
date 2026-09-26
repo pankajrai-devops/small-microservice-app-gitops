@@ -28,4 +28,4 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: pankaj-war
-          path: ./target/registration-app.war
+          path: /home/runner/work/small-microservice-app-gitops/small-microservice-app-gitops/webapp/target/registration-app.war
