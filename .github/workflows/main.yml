@@ -2,14 +2,34 @@ name: CI Pipeline
 on:
   push:
     branches: [ main, pankajrai-devops-patch-1 ]
-  pull_request: 
-    branches: [ main ]
+    paths:
+      - 'webapp/**'
+      - 'db/**'
 env:
   app_dir: "./webapp"
   db_dir: "./db"
 jobs:
+  #change detector to make monorepos little smart to know whats changed but I really dont favor mono repos because they add lot of complications
+  #if we really have microservices and they are truly independent as such we should consider separate repo for each of the project
+  change_detections:
+    runs-on: ubuntu-latest
+    outputs:
+      webapp_changed: ${{ steps.filter.outputs.webapp }}
+      db_changed: ${{ steps.filter.outputs.db }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          filters: |
+            webapp:
+              - 'webapp/**'
+            db:
+              - 'db/**'
   tar_build:
     runs-on: ubuntu-latest
+    needs: change_detections
+    if: ${{ needs.change_detections.outputs.webapp_changed == 'true' }}
     defaults:
       run:
         working-directory: ${{ env.app_dir }}
@@ -30,3 +50,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/webapp/target/registration-app.war
           archive: false
+  webapp_image_build:
+    runs-on: ubuntu-latest
+    needs: [change_detections , tar_build]
+    if: ${{ needs.change_detections.outputs.webapp_changed == 'true' }}
