@@ -8,7 +8,7 @@ on:
 env:
   app_dir: "./webapp"
   db_dir: "./db"
-  GHCR_OWNER: ${{ homecoming-placeholder-lowercase }} 
+  GHCR_OWNER: ${{ github.repository_owner }} 
 jobs:
   #change detector to make monorepos little smart to know whats changed but I really dont favor mono repos because they add lot of complications
   #if we really have microservices and they are truly independent as such we should consider separate repo for each of the project
@@ -79,8 +79,8 @@ jobs:
           file: ${{ env.app_dir }}/Dockerfile
           push: true
           tags: |
-            ghcr.io/pankaj-webapp:latest
-            ghcr.io/pankaj-webapp:${{ github.sha }}
+            ghcr.io/${{ env.GHCR_OWNER }}/pankaj-webapp:latest
+            ghcr.io/${{ env.GHCR_OWNER }}/pankaj-webapp:${{ github.sha }}
   db_image_build:
     runs-on: ubuntu-latest
     needs: change_detections
@@ -105,5 +105,5 @@ jobs:
           file: ${{ env.db_dir }}/Dockerfile
           push: true
           tags: |
-            ghcr.io/pankaj-db:latest
-            ghcr.io/pankaj-db:${{ github.sha }}
+            ghcr.io/${{ env.GHCR_OWNER }}/pankaj-db:latest
+            ghcr.io/${{ env.GHCR_OWNER }}/pankaj-db:${{ github.sha }}
