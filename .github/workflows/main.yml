@@ -8,6 +8,7 @@ on:
 env:
   app_dir: "./webapp"
   db_dir: "./db"
+  GHCR_OWNER: ${{ homecoming-placeholder-lowercase }} 
 jobs:
   #change detector to make monorepos little smart to know whats changed but I really dont favor mono repos because they add lot of complications
   #if we really have microservices and they are truly independent as such we should consider separate repo for each of the project
