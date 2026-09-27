@@ -19,6 +19,8 @@ jobs:
       db_changed: ${{ steps.filter.outputs.db }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 
       - uses: dorny/paths-filter@v4
         id: filter
         with:
