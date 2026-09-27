@@ -74,7 +74,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ${{ env.app_dir }}
+          file: ${{ env.app_dir }}/Dockerfile
           push: true
           tags: |
             ghcr.io/pankaj-webapp:latest
@@ -99,7 +100,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ${{ env.db_dir }}
+          file: ${{ env.db_dir }}/Dockerfile
           push: true
           tags: |
             ghcr.io/pankaj-db:latest
