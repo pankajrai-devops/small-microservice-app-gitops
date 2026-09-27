@@ -69,7 +69,7 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: registration-app.war
-          path: ${{ github.workspace }}/webapp/target/
+          path: ${{ github.workspace }}/webapp/
       - name: Github Container Registry Login
         uses: docker/login-action@v3
         with:
